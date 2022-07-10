@@ -49,4 +49,26 @@ public class Swagger2Config {
                 .contact(new Contact("Yuqi", "https://github.com/Yuqi19971225", "857559565@qq.com"))
                 .build();
     }
+
+    @Bean
+    public Docket webApiConfig(){
+
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("webApi")
+                .apiInfo(adminApiInfo())
+                .select()
+                //只显示admin路径下的页面
+                .paths(Predicates.and(PathSelectors.regex("/web/.*")))
+                .build();
+
+    }
+
+    private ApiInfo webApiInfo(){
+        return new ApiInfoBuilder()
+                .title("尚融宝积分等级系统-API文档")
+                .description("本文档描述了尚融宝积分等级系统接口")
+                .version("1.0")
+                .contact(new Contact("Yuqi", "https://github.com/Yuqi19971225", "857559565@qq.com"))
+                .build();
+    }
 }

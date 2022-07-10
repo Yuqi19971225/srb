@@ -19,7 +19,7 @@ import java.util.List;
  * @author FYQ
  * @since 2022-07-10
  */
-@Api("积分等级管理")
+@Api(tags = "积分等级管理")
 @CrossOrigin
 @RestController
 @RequestMapping("admin/core/integralGrade")
