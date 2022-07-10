@@ -1,6 +1,7 @@
 package com.atguigu.srb.core.controller.admin;
 
 
+import com.atguigu.common.result.R;
 import com.atguigu.srb.core.pojo.entity.IntegralGrade;
 import com.atguigu.srb.core.service.IntegralGradeService;
 import io.swagger.annotations.Api;
@@ -13,7 +14,7 @@ import java.util.List;
 
 /**
  * <p>
- * 积分等级表 管理员制器
+ * 积分等级表 管理员控制器
  * </p>
  *
  * @author FYQ
@@ -27,19 +28,37 @@ public class AdminIntegralGradeController {
     @Resource
     private IntegralGradeService integralGradeService;
 
+    /**
+     * @param :
+     * @return R
+     * @description 展示所有积分等级列表
+     * @date
+     */
     @ApiOperation(value = "积分等级列表")
     @GetMapping("/list")
-    public List<IntegralGrade> listAll() {
-        return integralGradeService.list();
+    public R listAll() {
+        List<IntegralGrade> integralGradeList = integralGradeService.list();
+        return R.ok().data(integralGradeList);
     }
 
+    /**
+     * @param id:
+     * @return R
+     * @description 根据id删除积分等级
+     * @date
+     */
     @ApiOperation(value = "根据id删除积分等级", notes = "逻辑删除")
     @DeleteMapping("/remove/{id}")
-    public boolean removeById(
+    public R removeById(
             @PathVariable
             @ApiParam(value = "数据id", required = true, example = "100")
                     Long id) {
-        return integralGradeService.removeById(id);
+        boolean result = integralGradeService.removeById(id);
+        if (result) {
+            return R.ok().message("删除成功");
+        } else {
+            return R.error().message("删除失败");
+        }
     }
 }
 
