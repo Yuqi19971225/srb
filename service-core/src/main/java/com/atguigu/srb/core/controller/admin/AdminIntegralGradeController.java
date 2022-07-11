@@ -1,7 +1,10 @@
 package com.atguigu.srb.core.controller.admin;
 
 
+import com.atguigu.common.exception.Assert;
+import com.atguigu.common.exception.BusinessException;
 import com.atguigu.common.result.R;
+import com.atguigu.common.result.ResponseEnum;
 import com.atguigu.srb.core.pojo.entity.IntegralGrade;
 import com.atguigu.srb.core.service.IntegralGradeService;
 import io.swagger.annotations.Api;
@@ -72,6 +75,7 @@ public class AdminIntegralGradeController {
             @ApiParam(value = "积分等级对象", required = true)
             @RequestBody IntegralGrade integralGrade
     ) {
+        Assert.notNull(integralGrade.getBorrowAmount(), ResponseEnum.BORROW_AMOUNT_NULL_ERROR);
         boolean result = integralGradeService.save(integralGrade);
         if (result) {
             return R.ok().message("保存成功");
