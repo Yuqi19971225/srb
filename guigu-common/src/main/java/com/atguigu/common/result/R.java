@@ -1,5 +1,6 @@
 package com.atguigu.common.result;
 
+
 import lombok.Data;
 
 /**
@@ -88,13 +89,13 @@ public class R<T> {
     }
 
     /**
-     * @param t:
+     * @param data:
      * @return R
      * @description 设置信息
      * @date
      */
-    public R data(T t) {
-        this.setData(t);
+    public R data(T data) {
+        this.setData(data);
         return this;
     }
 

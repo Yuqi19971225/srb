@@ -35,7 +35,7 @@ public class AdminIntegralGradeController {
      * @date
      */
     @ApiOperation(value = "积分等级列表")
-    @GetMapping("/list")
+    @GetMapping("/get/list")
     public R listAll() {
         List<IntegralGrade> integralGradeList = integralGradeService.list();
         return R.ok().data(integralGradeList);
@@ -50,9 +50,8 @@ public class AdminIntegralGradeController {
     @ApiOperation(value = "根据id删除积分等级", notes = "逻辑删除")
     @DeleteMapping("/remove/{id}")
     public R removeById(
-            @PathVariable
             @ApiParam(value = "数据id", required = true, example = "100")
-                    Long id) {
+            @PathVariable Long id) {
         boolean result = integralGradeService.removeById(id);
         if (result) {
             return R.ok().message("删除成功");
@@ -60,5 +59,67 @@ public class AdminIntegralGradeController {
             return R.error().message("删除失败");
         }
     }
+
+    /**
+     * @param integralGrade:
+     * @return R
+     * @description 新增积分等级
+     * @date
+     */
+    @ApiOperation("新增积分等级")
+    @PostMapping("/save")
+    public R save(
+            @ApiParam(value = "积分等级对象", required = true)
+            @RequestBody IntegralGrade integralGrade
+    ) {
+        boolean result = integralGradeService.save(integralGrade);
+        if (result) {
+            return R.ok().message("保存成功");
+        } else {
+            return R.error().message("保存失败");
+        }
+
+    }
+
+    /**
+     * @param id:
+     * @return R
+     * @description 根据ID查找积分等级
+     * @date
+     */
+    @ApiOperation("根据id获取积分等级")
+    @GetMapping("/get/{id}")
+    public R getById(
+            @ApiParam(value = "数据id", required = true, example = "1")
+            @PathVariable Long id
+    ) {
+        IntegralGrade integralGrade = integralGradeService.getById(id);
+        if (integralGrade != null) {
+            return R.ok().data(integralGrade);
+        } else {
+            return R.error().message("数据不存在");
+        }
+    }
+
+    /**
+     * @param integralGrade:
+     * @return R
+     * @description 更新积分等级
+     * @date
+     */
+    @ApiOperation("更新积分等级")
+    @PutMapping("/update")
+    public R updateById(
+            @ApiParam(value = "积分等级对象", required = true)
+            @RequestBody IntegralGrade integralGrade
+    ) {
+        boolean result = integralGradeService.updateById(integralGrade);
+        if (result) {
+            return R.ok().message("修改成功");
+        } else {
+            return R.error().message("修改失败");
+        }
+    }
+
 }
 
