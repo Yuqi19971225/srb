@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration;
 
 /**
  * <p>
@@ -52,6 +53,10 @@ public class Dict implements Serializable {
     @TableField("is_deleted")
     @TableLogic
     private Boolean deleted;
+
+    @ApiModelProperty(value = "是否包含子节点")
+    @TableField(exist = false)
+    private Boolean hasChildren;
 
 
 }

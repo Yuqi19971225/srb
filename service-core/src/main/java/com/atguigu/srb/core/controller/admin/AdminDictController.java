@@ -5,6 +5,7 @@ import com.atguigu.common.exception.BusinessException;
 import com.atguigu.common.result.R;
 import com.atguigu.common.result.ResponseEnum;
 import com.atguigu.srb.core.pojo.dto.ExcelDictDTO;
+import com.atguigu.srb.core.pojo.entity.Dict;
 import com.atguigu.srb.core.service.DictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.util.List;
 
 /**
  * @author ：FYQ
@@ -68,7 +70,16 @@ public class AdminDictController {
 
         } catch (IOException e) {
             //EXPORT_DATA_ERROR(104, "数据导出失败"),
-            throw  new BusinessException(ResponseEnum.EXPORT_DATA_ERROR, e);
+            throw new BusinessException(ResponseEnum.EXPORT_DATA_ERROR, e);
         }
+    }
+
+    @ApiOperation("根据上级ID获取子节点列表")
+    @GetMapping("listByParentId/{parentId}")
+    public R listByParentId(
+            @ApiParam(value = "上级节点", required = true)
+            @PathVariable Long parentId) {
+        List<Dict> dictList = dictService.listByParentId(parentId);
+        return R.ok().data(dictList);
     }
 }

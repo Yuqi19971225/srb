@@ -6,7 +6,9 @@ import com.atguigu.srb.core.pojo.dto.ExcelDictDTO;
 import com.atguigu.srb.core.pojo.entity.Dict;
 import com.atguigu.srb.core.mapper.DictMapper;
 import com.atguigu.srb.core.service.DictService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.swagger.models.auth.In;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,5 +45,28 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
             excelDictDTOArrayList.add(excelDictDTO);
         });
         return excelDictDTOArrayList;
+    }
+
+    @Override
+    public List<Dict> listByParentId(Long parentId) {
+        QueryWrapper<Dict> dictQueryWrapper = new QueryWrapper<>();
+        dictQueryWrapper.eq("parent_id", parentId);
+        List<Dict> dictList = baseMapper.selectList(dictQueryWrapper);
+        dictList.forEach(dict -> {
+            dict.setHasChildren(this.hasChildren(dict.getId()));
+        });
+        return dictList;
+    }
+
+    /**
+     * @param parentId:
+     * @return Boolean
+     * @description 判断该节点是否有子节点
+     * @date
+     */
+    private Boolean hasChildren(Long parentId) {
+        QueryWrapper<Dict> dictQueryWrapper = new QueryWrapper<Dict>().eq("parent_id", parentId);
+        Integer count = baseMapper.selectCount(dictQueryWrapper);
+        return count.intValue() > 0;
     }
 }
