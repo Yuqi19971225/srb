@@ -3,6 +3,9 @@ package com.atguigu.common.result;
 
 import lombok.Data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author ：FYQ
  * @description： 统一返回结果
@@ -16,7 +19,7 @@ public class R<T> {
     //响应信息
     private String message;
     //数据
-    private T data;
+    private Map<String, Object> data = new HashMap<>();
 
     /**
      * @param :
@@ -89,13 +92,25 @@ public class R<T> {
     }
 
     /**
-     * @param data:
+     * @param key:
+     * @param value:
+     * @return R
+     * @description TODO
+     * @date
+     */
+    public R data(String key, Object value){
+        this.data.put(key, value);
+        return this;
+    }
+
+    /**
+     * @param map:
      * @return R
      * @description 设置信息
      * @date
      */
-    public R data(T data) {
-        this.setData(data);
+    public R data(Map<String, Object> map) {
+        this.setData(map);
         return this;
     }
 

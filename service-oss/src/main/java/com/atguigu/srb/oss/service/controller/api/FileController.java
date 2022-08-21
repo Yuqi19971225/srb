@@ -7,12 +7,10 @@ import com.atguigu.srb.oss.service.FileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -42,7 +40,7 @@ public class FileController {
             String fileName = multipartFile.getOriginalFilename();
             String url = fileService.upload(inputStream, module, fileName);
 
-            return R.ok().message("文件上传成功").data(url);
+            return R.ok().message("文件上传成功").data("url", url);
         } catch (IOException e) {
             throw new BusinessException(ResponseEnum.UPLOAD_ERROR, e);
         }

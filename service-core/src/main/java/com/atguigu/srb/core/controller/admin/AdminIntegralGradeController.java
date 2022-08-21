@@ -41,7 +41,7 @@ public class AdminIntegralGradeController {
     @GetMapping("/get/list")
     public R listAll() {
         List<IntegralGrade> integralGradeList = integralGradeService.list();
-        return R.ok().data(integralGradeList);
+        return R.ok().data("integralGradeList", integralGradeList);
     }
 
     /**
@@ -99,7 +99,7 @@ public class AdminIntegralGradeController {
     ) {
         IntegralGrade integralGrade = integralGradeService.getById(id);
         if (integralGrade != null) {
-            return R.ok().data(integralGrade);
+            return R.ok().data("integralGrade", integralGrade);
         } else {
             return R.error().message("数据不存在");
         }
