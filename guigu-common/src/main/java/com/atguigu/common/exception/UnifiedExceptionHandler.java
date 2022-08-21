@@ -44,6 +44,18 @@ public class UnifiedExceptionHandler {
     }
 
     /**
+     * @param e:事务异常
+     * @return R
+     * @description TODO
+     * @date
+     */
+    @ExceptionHandler(value = BusinessException.class)
+    public R handleBusinessException(BusinessException e) {
+        log.error(e.getMessage(), e);
+        return R.error().message(e.getMessage());
+    }
+
+    /**
      * @param e:
      * @return R
      * @description SQL异常

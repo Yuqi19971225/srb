@@ -9,7 +9,7 @@ spring:
 
   #spring:
   redis:
-    host: 192.168.76.131
+    host: 192.168.76.133
     port: 6379
     database: 0
     password: dc3 #默认为空
