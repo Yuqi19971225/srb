@@ -48,6 +48,16 @@ public class AdminUserInfoController {
 
     }
 
+    @ApiOperation("锁定和解锁")
+    @PutMapping("/lock/{id}/{status}")
+    public R lock(
+            @ApiParam(value = "用户id", required = true)
+            @PathVariable Long id,
+            @ApiParam(value = "用户状态", required = true)
+            @PathVariable Integer status) {
+        userInfoService.lock(id, status);
+        return R.ok().message(status == 1 ? "解锁成功" : "锁定成功");
+    }
 
 }
 

@@ -17,10 +17,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-07-10
  */
 public interface UserInfoService extends IService<UserInfo> {
-
+    
     void register(RegisterVO registerVo);
 
     UserInfoVO login(LoginVO loginVO, String ip);
 
     Page<UserInfo> listByPage(Page<UserInfo> userInfoPage, UserInfoQuery userInfoQuery);
+
+    void lock(Long id, Integer status);
 }
