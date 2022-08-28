@@ -60,7 +60,7 @@ public class ApiSmsController {
         String code = RandomUtils.getSixBitRandom();
 
         //发送短信
-        smsService.send(mobile, SmsProperties.TEMPLATE_ID, code);
+//        smsService.send(mobile, SmsProperties.TEMPLATE_ID, code);
 
         //将验证码存入Redis
         redisTemplate.opsForValue().set("srb:sms:code" + mobile, code, 5, TimeUnit.MINUTES);
