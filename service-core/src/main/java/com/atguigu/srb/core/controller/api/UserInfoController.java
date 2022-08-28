@@ -12,6 +12,7 @@ import com.atguigu.srb.core.pojo.vo.UserInfoVO;
 import com.atguigu.srb.core.service.UserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -87,7 +88,7 @@ public class UserInfoController {
         //登录
         UserInfoVO userInfoVO = userInfoService.login(loginVO, ip);
 
-        return R.ok().data("userInfo",userInfoVO);
+        return R.ok().data("userInfo", userInfoVO);
     }
 
     @ApiOperation("校验令牌")
@@ -102,6 +103,15 @@ public class UserInfoController {
             //LOGIN_AUTH_ERROR(-211, "未登录"),
             return R.setResult(ResponseEnum.LOGIN_AUTH_ERROR);
         }
+    }
+
+    @ApiOperation("校验手机号是否被注册")
+    @GetMapping("/checkMobile/{mobile}")
+    public Boolean checkMobile(
+            @ApiParam(value = "手机号", required = true)
+            @PathVariable String mobile) {
+        return userInfoService.checkMobile(mobile);
+
     }
 
 }

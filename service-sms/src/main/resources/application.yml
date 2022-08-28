@@ -29,3 +29,14 @@ tencent:
     smsSdkAppId: 1400721392
     templateId: 1508428
     signName: 猪猪的技术日记公众号
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 10000 #连接超时配置
+        readTimeout: 600000 #执行超时配置
+
+logging:
+  level:
+    com.atguigu.srb.sms.client.CoreUserInfoClient: DEBUG #以什么级别监控哪个接口
