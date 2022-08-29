@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2022-07-10
  */
 @Api(tags = "会员接口")
-@CrossOrigin
+////@CrossOrigin
 @Slf4j
 @RestController
 @RequestMapping("/api/core/userInfo")

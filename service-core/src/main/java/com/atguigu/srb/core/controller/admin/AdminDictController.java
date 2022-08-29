@@ -30,7 +30,7 @@ import java.util.List;
 @RestController
 @Api(tags = "数据字典管理")
 @RequestMapping("/admin/core/dict")
-@CrossOrigin
+//@CrossOrigin
 public class AdminDictController {
     @Resource
     private DictService dictService;

@@ -22,7 +22,7 @@ import java.util.List;
  * @since 2022-08-28
  */
 @Api("会员登录日志接口")
-@CrossOrigin
+//@CrossOrigin
 @Slf4j
 @RestController
 @RequestMapping("/admin/core/userLoginRecord")
