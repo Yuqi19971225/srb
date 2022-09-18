@@ -200,6 +200,5 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
         //修改审核状态
         userInfo.setBorrowAuthStatus(borrowerApprovalVO.getStatus());
         userInfoMapper.updateById(userInfo);
-        //修改审核状态
     }
 }
