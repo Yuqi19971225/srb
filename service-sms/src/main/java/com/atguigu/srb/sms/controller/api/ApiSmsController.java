@@ -54,13 +54,14 @@ public class ApiSmsController {
         //验证手机号是否被注册
         Boolean result = coreUserInfoClient.checkMobile(mobile);
         System.out.println("result = " + result);
-        Assert.isTrue(result == false,ResponseEnum.MOBILE_EXIST_ERROR);
+        Assert.isTrue(result == false, ResponseEnum.MOBILE_EXIST_ERROR);
 
         //生成验证码
         String code = RandomUtils.getSixBitRandom();
 
         //发送短信
 //        smsService.send(mobile, SmsProperties.TEMPLATE_ID, code);
+        System.out.println("发送验证码" + code);
 
         //将验证码存入Redis
         redisTemplate.opsForValue().set("srb:sms:code" + mobile, code, 5, TimeUnit.MINUTES);
