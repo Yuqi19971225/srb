@@ -15,6 +15,7 @@ import com.atguigu.srb.core.pojo.entity.UserInfo;
 import com.atguigu.srb.core.service.TransFlowService;
 import com.atguigu.srb.core.service.UserAccountService;
 import com.atguigu.srb.core.util.LendNoUtils;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -96,5 +97,13 @@ public class UserAccountServiceImpl extends ServiceImpl<UserAccountMapper, UserA
         );
         transFlowService.saveTransFlow(transFlowBO);
         return "success";
+    }
+
+    @Override
+    public BigDecimal getAccount(Long userId) {
+        QueryWrapper<UserAccount> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        BigDecimal ammount = baseMapper.selectOne(queryWrapper).getAmount();
+        return ammount;
     }
 }
