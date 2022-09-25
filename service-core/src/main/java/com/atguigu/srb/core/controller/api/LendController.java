@@ -51,6 +51,7 @@ public class LendController {
             @ApiParam(value = "标的id", required = true)
             @PathVariable Long id
     ) {
+        System.out.println("收到请求");
         Map<String, Object> lendDetail = lendService.getLendDetail(id);
         return R.ok().data("lendDetail", lendDetail);
     }

@@ -26,6 +26,7 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -151,17 +152,17 @@ public class LendItemServiceImpl extends ServiceImpl<LendItemMapper, LendItem> i
         log.info("投标成功");
 
         //获取投资编号
-        String agentBillNo = (String)paramMap.get("agentBillNo");
+        String agentBillNo = (String) paramMap.get("agentBillNo");
 
         boolean result = transFlowService.isSaveTransFlow(agentBillNo);
-        if(result){
+        if (result) {
             log.warn("幂等性返回");
             return;
         }
 
         //获取用户的绑定协议号
-        String bindCode = (String)paramMap.get("voteBindCode");
-        String voteAmt = (String)paramMap.get("voteAmt");
+        String bindCode = (String) paramMap.get("voteBindCode");
+        String voteAmt = (String) paramMap.get("voteAmt");
 
         //修改商户系统中的用户账户金额：余额、冻结金额
         userAccountMapper.updateAccount(bindCode, new BigDecimal("-" + voteAmt), new BigDecimal(voteAmt));
@@ -193,5 +194,22 @@ public class LendItemServiceImpl extends ServiceImpl<LendItemMapper, LendItem> i
         QueryWrapper<LendItem> queryWrapper = new QueryWrapper();
         queryWrapper.eq("lend_item_no", lendItemNo);
         return baseMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public List<LendItem> selectByLendId(Long lendId) {
+        QueryWrapper<LendItem> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("lend_id", lendId);
+        List<LendItem> list = baseMapper.selectList(queryWrapper);
+        return list;
+    }
+
+    @Override
+    public List<LendItem> selectByLendId(Long lendId, Integer status) {
+        QueryWrapper<LendItem> queryWrapper = new QueryWrapper();
+        queryWrapper.eq("lend_id", lendId);
+        queryWrapper.eq("status", status);
+        List<LendItem> lendItemList = baseMapper.selectList(queryWrapper);
+        return lendItemList;
     }
 }
