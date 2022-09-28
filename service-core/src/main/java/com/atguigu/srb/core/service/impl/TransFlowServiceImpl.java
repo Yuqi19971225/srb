@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -51,5 +52,13 @@ public class TransFlowServiceImpl extends ServiceImpl<TransFlowMapper, TransFlow
         queryWrapper.eq("trans_no", agentBillNo);
         int count = baseMapper.selectCount(queryWrapper);
         return count > 0;
+    }
+
+    @Override
+    public List<TransFlow> selectListByUserId(Long userId) {
+        QueryWrapper<TransFlow> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId)
+                .orderByDesc("id");
+        return baseMapper.selectList(queryWrapper);
     }
 }
