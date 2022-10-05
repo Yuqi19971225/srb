@@ -21,6 +21,14 @@ spring:
         max-idle: 8     #最大空闲连接，默认8
         min-idle: 0     #最小空闲连接，默认0
 
+  #spring:
+  rabbitmq:
+    host: 192.168.1.2
+    port: 5672
+    virtual-host: /srb
+    username: srb
+    password: srb
+
 #腾讯云短信
 tencent:
   sms:
